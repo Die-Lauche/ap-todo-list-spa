@@ -1,12 +1,6 @@
 const state = {
   lists: [],
-  todos: [
-    { id: 1, todo_list_id: 1, content: 'ToDo 1', completed: false },
-    { id: 2, todo_list_id: 1, content: 'ToDo 2', completed: false },
-    { id: 3, todo_list_id: 1, content: 'ToDo 3', completed: false },
-    { id: 4, todo_list_id: 2, content: 'ToDo 4', completed: false },
-    { id: 5, todo_list_id: 2, content: 'ToDo 5', completed: false }
-  ]
+  todos: []
 }
 
 const getters = {
@@ -27,21 +21,28 @@ const mutations = {
 }
 
 const actions = {
-  // TODO Add the update/delete/create actions/mutations
   // Set the todo done
-  setDone (context, id) {
-    // TODO: Update in DB
-    context.commit('done', id) // change locally (mutate)
+  async setDone (context, todoId) {
+    // TODO: Send API call
+    try {
+      const response = await fetch(`/api/todos/${todoId}`)
+      const data = await response.json()
+      context.commit('done', data.todo) // change locally (mutate)
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong while setting the state of the todo!') // TODO: Change the error message
+    }
   },
   // Set the todo undone
   setUndone (context, id) {
-    // TODO: Update in DB
+    // TODO: Send API call
     context.commit('undone', id) // change locally (mutate)
   },
   // Add a new todo to the specified list (todoData contains [0] = the list id, [1] = the text)
   addTodo (context, todoData) {
     context.commit('add', todoData)
   },
+  // Load the todo lists for the currently logged in user
   async loadForUser (context, userId) {
     try {
       const response = await fetch(`/api/lists/${userId}`)

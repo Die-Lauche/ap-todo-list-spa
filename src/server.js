@@ -58,6 +58,14 @@ const server = new Server({
 
       return schema.lists.where({ userId })
     })
+
+    this.post('/todos/:todoId', (schema, request) => {
+      const todoId = request.params.todoId
+      const todo = schema.todos.findBy(todoId)
+      console.log(todo)
+      // TODO: Change the todo to done in the DB
+      return true
+    })
   },
 
   seeds (server) {
