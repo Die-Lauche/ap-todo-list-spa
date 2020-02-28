@@ -5,7 +5,7 @@ const state = {
 
 const getters = {
   user: state => state.user,
-  authenticated: state => state.user !== null // False if user is not logged in
+  authenticated: state => !!state.user // False if user is not logged in
 }
 
 const mutations = {
@@ -14,7 +14,7 @@ const mutations = {
 }
 
 const actions = {
-  // Do login
+  // Do login, check if the entered credentials are correct with a call to the api
   async login (context, credentials) {
     try {
       const response = await fetch('/api/login', {
@@ -23,9 +23,7 @@ const actions = {
       })
       const data = await response.json()
       if (data.user) {
-        context.commit('setUser', data.user)
-        context.commit('setError', null)
-        context.dispatch('ToDos/loadForUser', data.user.id, { root: true })
+        context.dispatch('setUser', data.user)
         return true
       } else {
         throw new Error(data.error)
@@ -34,6 +32,18 @@ const actions = {
       context.commit('setError', error)
       return false
     }
+  },
+  setUser (context, user) {
+    context.commit('setUser', user)
+    context.commit('setError', null)
+    sessionStorage.setItem('user', JSON.stringify(user))
+    context.dispatch('ToDos/loadForUser', user.id, { root: true })
+  },
+  logout (context) {
+    context.commit('setUser', null)
+    context.commit('setError', null)
+    sessionStorage.removeItem('user')
+    context.dispatch('ToDos/clear', null, { root: true })
   }
 }
 

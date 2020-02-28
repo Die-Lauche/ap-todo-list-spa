@@ -1,33 +1,28 @@
 <template>
   <div id="App">
-    <!-- <router-view></router-view> -->
     <div id="nav">
-      <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+      <a v-if="authenticated" href="#" @click.prevent="logout">Logout</a>
     </div>
-    <router-view />
+    <router-view v-if="authenticated" />
+    <login-form v-else />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import LoginForm from './components/LoginForm'
 
 export default {
   name: 'App',
+  components: { LoginForm },
   computed: {
     ...mapGetters('Users', ['authenticated'])
   },
-  mounted () {
-    // Send the user to the login page if hes not authenticated
-    if (!this.authenticated) {
-      this.$router.replace({ name: 'login' })
-    }
-  },
   methods: {
     logout () {
-      sessionStorage.removeItem('user')
-      this.authenticated = false
-      this.$router.replace({ name: 'login' })
-      // @todo Clear the store
+      // Set the user to null so authenticated = false
+      // Should possibly be done while clearing the store.
+      this.$store.dispatch('Users/logout')
     }
   }
 }

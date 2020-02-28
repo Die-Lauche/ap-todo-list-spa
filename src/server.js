@@ -31,11 +31,11 @@ const server = new Server({
       userId: 1
     })
   },
-
   serializers: {
     application: ApplicationSerializer,
     list: ApplicationSerializer.extend({
-      include: ['todos']
+      include: ['todos'],
+      embed: true
     })
   },
 
@@ -53,18 +53,29 @@ const server = new Server({
       return { error: 'Username or password wrong!' }
     })
 
-    this.get('/lists/:userId', (schema, request) => {
+    this.get('/listForUser/:userId', (schema, request) => {
       const userId = request.params.userId
 
       return schema.lists.where({ userId })
     })
 
-    this.post('/todos/:todoId', (schema, request) => {
-      const todoId = request.params.todoId
-      const todo = schema.todos.findBy(todoId)
-      console.log(todo)
+    this.post('/list/:listId', (schema, request) => {
+      const listId = request.params.listId
+      const todoContent = request.requestBody
+      console.log(todoContent)
+      // const todo = schema.todos.findBy(todoId)
+      server.create('todo', { listId: listId, content: todoContent })
+      // console.log(schema, request)
       // TODO: Change the todo to done in the DB
-      return true
+      return request.body
+    })
+
+    this.patch('/todo/:id', (schema, request) => {
+      const todo = schema.todos.find(request.params.id)
+
+      todo.update(JSON.parse(request.requestBody))
+
+      return todo
     })
   },
 
@@ -84,7 +95,13 @@ const server = new Server({
 
     server.create('user', { id: 1, username: 'test', password: 'test' })
     server.create('list', { userId: 1 })
+    server.create('list', { userId: 1 })
     server.create('todo', { listId: 1 })
+    server.create('todo', { listId: 1 })
+    server.create('todo', { listId: 2 })
+    server.create('todo', { listId: 2 })
+    server.create('todo', { listId: 2 })
+    server.create('todo', { listId: 2 })
   }
 })
 console.dir(server)
