@@ -1,7 +1,11 @@
 <template>
     <div id="overview">
         <todo-list v-for="list in lists" :key="list.id" :list="list" />
-        <button :click="addNewList">Add new list</button>
+        <form @submit.prevent="addNewList">
+          <input type="text" placeholder="New list" />
+          <button type="submit">Add new list</button>
+        </form>
+
     </div>
 </template>
 
@@ -17,7 +21,7 @@ export default {
   methods: {
     // Add a new list to the user
     addNewList () {
-      // this.$store.dispatch('ToDos/createNewList', this.userId)
+      this.$store.dispatch('ToDos/createNewList', this.userId)
     }
   }
 }

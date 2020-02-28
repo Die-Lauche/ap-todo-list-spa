@@ -91,6 +91,7 @@ const server = new Server({
     // }
 
     server.create('user', { id: 1, username: 'test', password: 'test' })
+    server.create('user', { id: 2, username: 'test1', password: 'test1' })
     server.create('list', { userId: 1 })
     server.create('list', { userId: 1 })
     server.create('todo', { listId: 1 })
