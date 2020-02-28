@@ -26,9 +26,7 @@ const server = new Server({
         return `ToDo ${i}`
       },
 
-      completed: false,
-
-      userId: 1
+      completed: false
     })
   },
   serializers: {
@@ -36,6 +34,9 @@ const server = new Server({
     list: ApplicationSerializer.extend({
       include: ['todos'],
       embed: true
+    }),
+    todo: ApplicationSerializer.extend({
+      include: ['list']
     })
   },
 
@@ -59,15 +60,11 @@ const server = new Server({
       return schema.lists.where({ userId })
     })
 
-    this.post('/list/:listId', (schema, request) => {
-      const listId = request.params.listId
-      const todoContent = request.requestBody
-      console.log(todoContent)
-      // const todo = schema.todos.findBy(todoId)
-      server.create('todo', { listId: listId, content: todoContent })
-      // console.log(schema, request)
-      // TODO: Change the todo to done in the DB
-      return request.body
+    this.post('/todo', (schema, request) => {
+      // Returns the created object including the created id and completed status
+      const todo = server.create('todo', JSON.parse(request.requestBody))
+
+      return todo
     })
 
     this.patch('/todo/:id', (schema, request) => {

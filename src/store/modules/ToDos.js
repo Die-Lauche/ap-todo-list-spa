@@ -24,8 +24,8 @@ const mutations = {
   setLists (state, lists) {
     state.lists = lists
   },
-  setTodo (state, todo) {
-    state.todo = todo
+  setTodo (state, data) {
+    state.lists.find(item => item.id === data.listId).todos.push(data)
   }
 }
 
@@ -65,16 +65,17 @@ const actions = {
     // TODO add new list to the user
   },
   // Add a new todo to the specified list (todoData contains [0] = the list id, [1] = the text)
-  async addTodo (context, [listId, todoText]) {
+  async addTodo (context, [listId, content]) {
     try {
       // Send the new todo content to the api so it can be added to the db
       // We already get the listid through the params so no need to add it to the body
-      const response = await fetch(`/api/list/${listId}`, {
+      const response = await fetch('/api/todo', {
         method: 'POST',
-        body: JSON.stringify({ content: todoText })
+        body: JSON.stringify({ listId, content })
       })
       const data = await response.json()
-      console.log(data)
+      console.log(data.todo)
+      context.commit('setTodo', data.todo)
     } catch (error) {
       console.error(error)
     }
