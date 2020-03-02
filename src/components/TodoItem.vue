@@ -1,7 +1,7 @@
 <template>
   <li>
     <span :class="itemClass">{{ todo.content }}</span>
-    <button v-on:click="toggleCompletion">x</button>
+    <button @click="toggleCompletion">x</button>
   </li>
 </template>
 
@@ -14,21 +14,21 @@ export default {
     }
   },
   computed: {
-    itemClass() {
-      return this.todo.completed ? "complete" : "";
+    itemClass () {
+      return this.todo.completed ? 'complete' : ''
     }
   },
   methods: {
     // Call the action to toggle the completed state on the current todo
-    toggleCompletion() {
+    toggleCompletion () {
       if (this.todo.completed) {
-        this.$store.dispatch("ToDos/setUndone", this.todo.id);
+        this.$store.dispatch('ToDos/setUndone', this.todo.id)
       } else {
-        this.$store.dispatch("ToDos/setDone", this.todo.id);
+        this.$store.dispatch('ToDos/setDone', this.todo.id)
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

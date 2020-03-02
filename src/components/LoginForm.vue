@@ -28,9 +28,7 @@ export default {
         username: this.username,
         password: this.password
       })
-      if (result) {
-        this.$router.replace({ name: 'overview' })
-      } else {
+      if (!result) {
         alert('Something went wrong')
       }
     }
