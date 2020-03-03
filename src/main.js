@@ -14,5 +14,12 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  render: h => h(App)
+  render: h => h(App),
+  created () {
+    if (sessionStorage.getItem('user')) {
+      console.log('Restoring user from session')
+      const user = JSON.parse(sessionStorage.getItem('user'))
+      this.$store.dispatch('Users/setUser', user)
+    }
+  }
 }).$mount('#app')

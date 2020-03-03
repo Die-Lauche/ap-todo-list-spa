@@ -26,16 +26,17 @@ const server = new Server({
         return `ToDo ${i}`
       },
 
-      completed: false,
-
-      userId: 1
+      completed: false
     })
   },
-
   serializers: {
     application: ApplicationSerializer,
     list: ApplicationSerializer.extend({
-      include: ['todos']
+      include: ['todos'],
+      embed: true
+    }),
+    todo: ApplicationSerializer.extend({
+      include: ['list']
     })
   },
 
@@ -53,18 +54,25 @@ const server = new Server({
       return { error: 'Username or password wrong!' }
     })
 
-    this.get('/lists/:userId', (schema, request) => {
+    this.get('/listForUser/:userId', (schema, request) => {
       const userId = request.params.userId
 
       return schema.lists.where({ userId })
     })
 
-    this.post('/todos/:todoId', (schema, request) => {
-      const todoId = request.params.todoId
-      const todo = schema.todos.findBy(todoId)
-      console.log(todo)
-      // TODO: Change the todo to done in the DB
-      return true
+    this.post('/todo', (schema, request) => {
+      // Returns the created object including the created id and completed status
+      const todo = server.create('todo', JSON.parse(request.requestBody))
+
+      return todo
+    })
+
+    this.patch('/todo/:id', (schema, request) => {
+      const todo = schema.todos.find(request.params.id)
+
+      todo.update(JSON.parse(request.requestBody))
+
+      return todo
     })
   },
 
@@ -83,8 +91,15 @@ const server = new Server({
     // }
 
     server.create('user', { id: 1, username: 'test', password: 'test' })
+    server.create('user', { id: 2, username: 'test1', password: 'test1' })
+    server.create('list', { userId: 1 })
     server.create('list', { userId: 1 })
     server.create('todo', { listId: 1 })
+    server.create('todo', { listId: 1 })
+    server.create('todo', { listId: 2 })
+    server.create('todo', { listId: 2 })
+    server.create('todo', { listId: 2 })
+    server.create('todo', { listId: 2 })
   }
 })
 console.dir(server)

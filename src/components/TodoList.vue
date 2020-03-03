@@ -2,7 +2,7 @@
   <div class="todo_list">
     <h1>{{ list.title }}</h1>
     <ul>
-      <todo-item v-for="todo in todos" :key="todo.id" :todo="todo" />
+      <todo-item v-for="todo in list.todos" :key="todo.id" :todo="todo" />
     </ul>
     <form @submit.prevent="addTodo">
       <input type="text" v-model="todoText" placeholder="New todo" />
@@ -24,11 +24,6 @@ export default {
   data () {
     return {
       todoText: ''
-    }
-  },
-  computed: {
-    todos () {
-      return this.$store.getters['ToDos/todosForList'](this.list.id)
     }
   },
   methods: {

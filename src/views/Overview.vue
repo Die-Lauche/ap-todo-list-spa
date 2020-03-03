@@ -1,6 +1,11 @@
 <template>
     <div id="overview">
         <todo-list v-for="list in lists" :key="list.id" :list="list" />
+        <form @submit.prevent="addNewList">
+          <input type="text" placeholder="New list" />
+          <button type="submit">Add new list</button>
+        </form>
+
     </div>
 </template>
 
@@ -12,6 +17,12 @@ export default {
   components: { TodoList },
   computed: {
     ...mapGetters('ToDos', ['lists'])
+  },
+  methods: {
+    // Add a new list to the user
+    addNewList () {
+      this.$store.dispatch('ToDos/createNewList', this.userId)
+    }
   }
 }
 </script>
