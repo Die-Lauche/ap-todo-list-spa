@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="left-column col-lg-4">
-        <h1>ToDo-List Login</h1>
+        <h1>Bring deine Projekte auf das nächste Level</h1>
         <form @submit.prevent="doLogin">
           <input type="text" name="username" v-model="username" placeholder="Benutzername" />
           <input type="password" name="password" v-model="password" placeholder="Passwort" />
