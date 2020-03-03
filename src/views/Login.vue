@@ -1,13 +1,24 @@
 <template>
   <div id="login">
-    <h1>ToDo-List Login</h1>
-    <form @submit.prevent="doLogin">
-      <input type="text" name="username" v-model="username" placeholder="Benutzername" />
-      <input type="password" name="password" v-model="password" placeholder="Passwort" />
-      <button type="submit" class="btn">
-        <span>Login</span>
-      </button>
-    </form>
+    <div class="header row">
+      <img src="../assets/logo.png" />
+    </div>
+    <div class="row">
+      <div class="left-column col-lg-4">
+        <h1>ToDo-List Login</h1>
+        <form @submit.prevent="doLogin">
+          <input type="text" name="username" v-model="username" placeholder="Benutzername" />
+          <input type="password" name="password" v-model="password" placeholder="Passwort" />
+          <button type="submit" class="btn">
+            <span>Login</span>
+          </button>
+        </form>
+      </div>
+      <div class="right-column col-lg-8">
+        <img src="../assets/undraw_to_do_list_a49b.svg" />
+      </div>
+    <div>
+    
   </div>
 </template>
 
