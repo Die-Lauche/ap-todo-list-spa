@@ -4,8 +4,13 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import VModal from 'vue-js-modal'
+import Unicon from 'vue-unicons'
+import { uniUserCircle } from 'vue-unicons/src/icons'
 
 import './server'
+
+Unicon.add([uniUserCircle])
+Vue.use(Unicon)
 
 Vue.use(VModal, { dynamic: true })
 

@@ -27,5 +27,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+// Scoped Styles only for this view
+#overview {
+  border-top: 1px solid #E0E0E0;
+}
 </style>

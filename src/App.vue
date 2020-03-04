@@ -1,11 +1,12 @@
 <template>
   <div id="App">
-    <div id="nav row">
+    <div id="nav" class="row">
       <div id="logo">
         <img src="./assets/logo.png" />
       </div>
-      <div class="logout-btn">
-        <a v-if="authenticated" href="#" @click.prevent="logout">Logout</a>
+      <div v-if="authenticated" class="logout-btn">
+        <unicon class="user-circle" name="user-circle" fill="#1E1E1E"></unicon>
+        <a  href="#" @click.prevent="logout">Abmelden</a>
       </div>
     </div>
     <router-view v-if="authenticated" />
@@ -42,22 +43,20 @@ export default {
 </script>
 
 <style lang="scss">
-// Overall styling
+// Overall and navigation styling
 $alternative-grey: #F2F2F2;
 $grey: #E0E0E0;
 $blue-primary: #3399FF;
 $blue-light:  #EBF5FF;
+$textAndIcons: #1E1E1E;
 
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
 body {
   font-family: Lato;
   font-size: 16px;
   background-color: #ffffff;
-}
-
-#logo img {
-  width: 120px;
-  height: auto;
+  color: $textAndIcons;
+  margin: 0;
 }
 
 #app {
@@ -69,7 +68,8 @@ body {
 }
 
 #nav {
-  padding: 30px;
+  padding: 10px 20px;
+  position: relative;
 
   a {
     font-weight: bold;
@@ -78,6 +78,38 @@ body {
     &.router-link-exact-active {
       color: #42b983;
     }
+  }
+}
+
+#logo {
+  display: inline-block;
+
+  img {
+    width: 120px;
+    height: auto;
+  }
+}
+
+.logout-btn {
+  display: inline-block;
+  position: absolute;
+  right: 35px;
+  top: 22px;
+
+  a {
+    font-family: Lato;
+    text-decoration: none;
+    color: $textAndIcons;
+    font-weight: 700;
+
+    &:hover {
+      color: $blue-primary;
+    }
+  }
+
+  .user-circle {
+    vertical-align: middle;
+    margin-right: 7px;
   }
 }
 

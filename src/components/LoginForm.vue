@@ -1,5 +1,6 @@
 <template>
   <div id="login">
+    <div id="blue-ball"></div>
     <div class="row">
       <div class="col-lg-4 col-xs-12">
         <div class="left-column">
