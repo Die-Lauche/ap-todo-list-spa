@@ -6,7 +6,7 @@
         <div class="left-column">
         <h1>Bring deine Projekte auf das nächste Level</h1>
         <div class="login-container">
-          <button class="--large" type="button" @click="show('login')">
+          <button class="btn btn--large" type="button" @click="show('login')">
             <span>Login</span>
           </button>
           <modal name="login" height="auto" width="300">
@@ -14,14 +14,14 @@
             <form @submit.prevent="doLogin">
               <input type="text" name="username" v-model="username" placeholder="Benutzername" />
               <input type="password" name="password" v-model="password" placeholder="Passwort" />
-              <button type="submit">
+              <button type="submit" class="btn">
                 <span>Anmelden</span>
               </button>
             </form>
           </modal>
         </div>
         <div class="registration-container">
-          <button type="button" class="white --large" @click="show('registration')">
+          <button type="button" class="btn btn--large white" @click="show('registration')">
           <span>Registrieren</span>
           </button>
           <modal name="registration" height="auto" width="300">
@@ -32,7 +32,7 @@
               <input type="text" name="email" v-model="email" placeholder="E-Mail" />
               <input type="text" name="city" v-model="city" placeholder="Stadt" />
               <input type="text" name="postCode" v-model="postCode" placeholder="Postleitzahl" />
-              <button type="submit">
+              <button type="submit" class="btn">
                 <span>Registrieren</span>
               </button>
             </form>

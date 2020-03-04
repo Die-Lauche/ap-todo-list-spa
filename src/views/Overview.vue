@@ -3,7 +3,7 @@
         <todo-list v-for="list in lists" :key="list.id" :list="list" />
         <form @submit.prevent="addNewList">
           <input type="text" placeholder="New list" />
-          <button type="submit">Add new list</button>
+          <button type="submit" class="btn">Add new list</button>
         </form>
 
     </div>

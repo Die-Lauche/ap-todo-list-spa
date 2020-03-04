@@ -113,6 +113,9 @@ h1, .h1 {
 }
 
 input {
+  font-family: Lato;
+  font-weight: 700;
+  font-size: 16px;
   width: 100%;
   padding: 20px 8px;
   margin-bottom: 10px;
@@ -132,7 +135,7 @@ input {
   }
 }
 
-button {
+.btn {
   font-family: Lato;
   font-weight: 700;
   font-size: 18px;
@@ -173,7 +176,8 @@ button {
     background-color: #fff;
   }
 
-  &.--large {
+  // Large button styling for the landing page
+  &--large {
     padding: 20px;
     margin: 10px 0;
     border-radius: 50px;
