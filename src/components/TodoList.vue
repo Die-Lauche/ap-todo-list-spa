@@ -1,20 +1,16 @@
 <template>
   <div class="todo_list">
-    <h1>{{ list.title }}</h1>
-    <ul>
-      <todo-item v-for="todo in list.todos" :key="todo.id" :todo="todo" />
-    </ul>
-    <form @submit.prevent="addTodo">
-      <input type="text" v-model="todoText" placeholder="New todo" />
-    </form>
+    <a href="" @click.prevent="showListDetail">
+      <h1>{{ list.title }}</h1>
+    </a>
   </div>
 </template>
 
 <script>
-import TodoItem from '../components/TodoItem'
+// import TodoItem from '../components/TodoItem'
 
 export default {
-  components: { TodoItem },
+  components: { },
   props: {
     list: {
       type: Object,
@@ -26,12 +22,21 @@ export default {
       todoText: ''
     }
   },
+  computed: {
+    // Return the todos from a specified list
+    todos () {
+      return this.$store.getters['ToDos/todosForList'](this.list.id)
+    }
+  },
   methods: {
     addTodo () {
       console.log(this.todoText)
-      // Call action
+      // Call action to add a new todo to the list
       this.$store.dispatch('ToDos/addTodo', [this.list.id, this.todoText])
       this.todoText = ''
+    },
+    showListDetail (context) {
+      console.log(this.list)
     }
   }
 }

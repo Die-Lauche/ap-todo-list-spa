@@ -2,11 +2,11 @@
   <div id="login">
     <div id="blue-ball"></div>
     <div class="row">
-      <div class="col-lg-4 col-xs-12">
+      <div class="col-lg-5 col-xs-12">
         <div class="left-column">
         <h1>Bring deine Projekte auf das nächste Level</h1>
         <div class="login-container">
-          <button type="button" @click="show('login')">
+          <button class="--large" type="button" @click="show('login')">
             <span>Login</span>
           </button>
           <modal name="login" height="auto" width="300">
@@ -21,7 +21,7 @@
           </modal>
         </div>
         <div class="registration-container">
-          <button type="button" class="white" @click="show('registration')">
+          <button type="button" class="white --large" @click="show('registration')">
           <span>Registrieren</span>
           </button>
           <modal name="registration" height="auto" width="300">
@@ -39,9 +39,8 @@
           </modal>
         </div>
       </div>
-
       </div>
-      <div class="col-lg-8 col-xs-12">
+      <div class="col-lg-7 col-xs-12 end-xs">
         <div class="right-column">
           <img src="../assets/undraw_to_do_list_a49b.svg" />
         </div>
@@ -92,14 +91,11 @@ export default {
 </script>
 
 <style lang="scss">
-/* #login {
-  width: 500px;
-  border: 1px solid #cccccc;
-  background-color: #ffffff;
-  margin: auto;
-  margin-top: 200px;
-  padding: 20px;
-} */
+#login {
+  max-width: 1435px;
+  margin: 0 auto;
+  margin-top: 64px;
+}
 
 .right-column img {
   width: 100%;
@@ -110,5 +106,25 @@ export default {
 
 .left-column {
   padding: 10%;
+  position: relative;
+  z-index: 20;
+}
+
+.login-container, .registration-container {
+  h1, .h1 {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+}
+
+#blue-ball {
+  position: absolute;
+  top: -70px;
+  left: -190px;
+  width: 550px;
+  height: 550px;
+  background-color:#EBF5FF;
+  border-radius: 50%;
+  z-index: 1;
 }
 </style>

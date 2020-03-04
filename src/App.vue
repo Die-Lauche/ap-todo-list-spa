@@ -70,59 +70,51 @@ body {
 #nav {
   padding: 10px 20px;
   position: relative;
+  z-index: 100;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-
-#logo {
+  #logo {
   display: inline-block;
 
-  img {
-    width: 120px;
-    height: auto;
-  }
-}
-
-.logout-btn {
-  display: inline-block;
-  position: absolute;
-  right: 35px;
-  top: 22px;
-
-  a {
-    font-family: Lato;
-    text-decoration: none;
-    color: $textAndIcons;
-    font-weight: 700;
-
-    &:hover {
-      color: $blue-primary;
+    img {
+      width: 120px;
+      height: auto;
     }
   }
 
-  .user-circle {
-    vertical-align: middle;
-    margin-right: 7px;
+  .logout-btn {
+    display: inline-block;
+    position: absolute;
+    right: 35px;
+    top: 22px;
+
+    a {
+      font-family: Lato;
+      text-decoration: none;
+      color: $textAndIcons;
+      font-weight: 700;
+
+      &:hover {
+        color: $blue-primary;
+      }
+    }
+
+    .user-circle {
+      vertical-align: middle;
+      margin-right: 7px;
+    }
   }
 }
 
 h1, .h1 {
   font-family: Lato;
-  margin-bottom: 15px;
-  font-size: 32px;
+  margin-bottom: 64px;
+  font-size: 64px;
   font-weight: 900;
 }
 
 input {
   width: 100%;
-  padding: 12px 8px;
+  padding: 20px 8px;
   margin-bottom: 10px;
   background-color: $alternative-grey;
   border-radius: 5px;
@@ -180,6 +172,13 @@ button {
     border: 2px solid $blue-primary;
     background-color: #fff;
   }
+
+  &.--large {
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 50px;
+    min-width: 300px
+  }
 }
 
 // Modal styles
@@ -195,5 +194,11 @@ button {
     margin: 15px auto 0px auto;
     display: block;
   }
+}
+
+// Flexboxgrid overrides
+.row {
+  margin-left: 0!important;
+  margin-right: 0!important;
 }
 </style>
