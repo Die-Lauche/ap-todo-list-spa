@@ -1,17 +1,37 @@
 <template>
     <div id="overview">
-      {{$route.params}}
+        <h1>{{ getCurrentList.title }}</h1>
+        <div class="lane-todo">
+            <todo-item v-for="todo in getTodosFromStore.isInTodo" :key="todo.id" :todo="todo" />
+        </div>
+        <div class="lane-progress">
+            <todo-item v-for="todo in getTodosFromStore.isInProgress" :key="todo.id" :todo="todo" />
+        </div>
+        <div class="lane-completed">
+            <todo-item v-for="todo in getTodosFromStore.isCompleted" :key="todo.id" :todo="todo" />
+        </div>
     </div>
 </template>
 
 <script>
-// import TodoList from '../components/TodoList'
+import { mapGetters } from 'vuex'
+import TodoItem from '../components/TodoItem'
 
 export default {
-  methods: {
-    test () {
-      console.log(this.id)
+  components: { TodoItem },
+  computed: {
+    ...mapGetters('ToDos', ['todos', 'currentList']),
+    // Return the todos
+    getTodosFromStore () {
+      return this.todos
+    },
+    getCurrentList () {
+      return this.currentList
     }
+  },
+  created () {
+    this.$store.dispatch('ToDos/setCurrentList', this.$route.params.listId)
+    this.$store.dispatch('ToDos/getListTodos', this.$route.params.listId)
   }
 }
 </script>

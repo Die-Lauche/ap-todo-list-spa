@@ -107,8 +107,8 @@ body {
 
 h1, .h1 {
   font-family: Lato;
-  margin-bottom: 64px;
-  font-size: 64px;
+  margin-bottom: 32px;
+  font-size: 32px;
   font-weight: 900;
 }
 

@@ -17,13 +17,13 @@ const actions = {
   // Do login, check if the entered credentials are correct with a call to the api
   async login (context, credentials) {
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('http://localhost:5000/request/user.json', {
         method: 'post',
         body: JSON.stringify(credentials)
       })
       const data = await response.json()
-      if (data.user) {
-        context.dispatch('setUser', data.user)
+      if (data) {
+        context.dispatch('setUser', data)
         return true
       } else {
         throw new Error(data.error)
@@ -37,7 +37,7 @@ const actions = {
   // Registrate the user and dispatch the mutation to change the state of the user when successfully registrated
   async registration (context, credentials) {
     try {
-      const response = await fetch('/api/registration', {
+      const response = await fetch('http://localhost:5000/request/user.json', {
         method: 'post',
         body: JSON.stringify(credentials)
       })

@@ -1,0 +1,42 @@
+[
+    {
+        "id": "1",
+        "content": "Hier Content 1",
+        "isCompleted": false,
+        "isInProgress": false,
+        "isInTodo": true,
+        "todo_list_id": "1"
+    },
+    {
+        "id": "2",
+        "content": "Hier Content 2",
+        "isCompleted": false,
+        "isInProgress": false,
+        "isInTodo": true,
+        "todo_list_id": "1"
+    },
+    {
+        "id": "3",
+        "content": "Hier Content 3",
+        "isCompleted": false,
+        "isInProgress": true,
+        "isInTodo": false,
+        "todo_list_id": "1"
+    },
+    {
+        "id": "4",
+        "content": "Hier Content 4",
+        "isCompleted": false,
+        "isInProgress": false,
+        "isInTodo": true,
+        "todo_list_id": "2"
+    },
+    {
+        "id": "5",
+        "content": "Hier Content 5",
+        "isCompleted": false,
+        "isInProgress": false,
+        "isInTodo": true,
+        "todo_list_id": "2"
+    }
+]

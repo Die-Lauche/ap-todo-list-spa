@@ -1,9 +1,13 @@
 const state = {
-  lists: []
+  lists: [],
+  todos: {},
+  currentList: {}
 }
 
 const getters = {
-  lists: state => state.lists
+  lists: state => state.lists,
+  todos: state => state.todos,
+  currentList: state => state.currentList
 }
 
 const mutations = {
@@ -21,6 +25,20 @@ const mutations = {
   },
   setLists (state, lists) {
     state.lists = lists
+  },
+  setTodos (state, todos) {
+    const rawTodos = todos.slice()
+    const filteredTodos = {}
+
+    filteredTodos.isCompleted = rawTodos.filter(item => item.isCompleted === true)
+    filteredTodos.isInProgress = rawTodos.filter(item => item.isInProgress === true)
+    filteredTodos.isInTodo = rawTodos.filter(item => item.isInTodo === true)
+
+    state.todos = filteredTodos
+  },
+  setCurrentList (state, listId) {
+    const currentList = state.lists.find(item => item.id === listId)
+    state.currentList = currentList
   }
 }
 
@@ -41,6 +59,7 @@ const actions = {
       alert('Something went wrong while setting the state of the todo!') // TODO: Change the error message
     }
   },
+  // Send an api call to set the todo undone
   async setUndone (context, todoId) {
     try {
       const response = await fetch(`/api/todo/${todoId}`, {
@@ -50,6 +69,7 @@ const actions = {
         })
       })
       const data = await response.json()
+      // Set the todo undone
       context.commit('setTodoStatus', [data.todo, false])
     } catch (error) {
       console.error(error)
@@ -69,7 +89,6 @@ const actions = {
         body: JSON.stringify({ listId, content })
       })
       const data = await response.json()
-      console.log(data.todo)
       context.commit('setTodo', data.todo)
     } catch (error) {
       console.error(error)
@@ -78,13 +97,30 @@ const actions = {
   // Load the todo lists for the currently logged in user
   async loadForUser (context, userId) {
     try {
-      const response = await fetch(`/api/listForUser/${userId}`)
+      // const response = await fetch(`/listForUser?userId=${userId}`)
+      const response = await fetch('http://localhost:5000/request/todoList.json')
       const data = await response.json()
-      context.commit('setLists', data.lists)
+      context.commit('setLists', data)
     } catch (error) {
       console.error(error)
       context.commit('setLists', [])
     }
+  },
+  async getListTodos (context, listId) {
+    try {
+      // const response = await fetch(`/todosForList?listId=${listId}`)
+      const response = await fetch('http://localhost:5000/request/todos.json')
+      const data = await response.json()
+      context.commit('setTodos', data)
+    } catch (error) {
+      console.error(error)
+      context.commit('setTodos', [])
+    }
+  },
+  // Set the current list for use in the todos detail page
+  setCurrentList (context, listId) {
+    context.commit('setCurrentList', listId)
+    context.dispatch('getListTodos', listId)
   }
 }
 

@@ -57,6 +57,11 @@ export default {
     return {
       username: '',
       password: '',
+      usernameReg: '',
+      passwordReg: '',
+      email: '',
+      city: '',
+      postCode: '',
       isModalVisible: false
     }
   },
@@ -90,7 +95,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #login {
   max-width: 1435px;
   margin: 0 auto;
@@ -126,5 +131,10 @@ export default {
   background-color:#EBF5FF;
   border-radius: 50%;
   z-index: 1;
+}
+
+h1, .h1 {
+  font-size: 64px;
+  margin-bottom: 64px;
 }
 </style>

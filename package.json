@@ -13,6 +13,7 @@
     "flexboxgrid": "^6.3.1",
     "miragejs": "^0.1.35",
     "register-service-worker": "^1.6.2",
+    "serve": "^11.3.0",
     "vue": "^2.6.11",
     "vue-js-modal": "^1.3.33",
     "vue-router": "^3.1.5",

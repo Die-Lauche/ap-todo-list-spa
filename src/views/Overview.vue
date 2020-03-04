@@ -1,10 +1,8 @@
 <template>
     <div id="overview">
         <!-- <todo-list v-for="list in lists" :key="list.id" :list="list" /> -->
-        <div class="lists" v-for="list in lists" :key="list.id" :list="list">
-          <router-link :to="{ name: 'details', params: { listId: list.id }}">
-            <div class="list-title h1">{{ list.title }}</div>
-          </router-link>
+        <div class="todo-lists" >
+          <todo-list v-for="list in lists" :key="list.id" :list="list"/>
         </div>
         <form @submit.prevent="addNewList">
           <input type="text" placeholder="New list" />
@@ -16,10 +14,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// import TodoList from '../components/TodoList'
+import TodoList from '../components/TodoList'
 
 export default {
-  components: { },
+  components: { TodoList },
   computed: {
     ...mapGetters('ToDos', ['lists'])
   },
@@ -37,17 +35,4 @@ export default {
 #overview {
   border-top: 1px solid #E0E0E0;
 }
-
-.h1, h1 {
-  font-size: 32px;
-}
-
-.lists {
-  display: inline-block;
-
-  .list-title {
-    text-decoration: none;
-  }
-}
-
 </style>
