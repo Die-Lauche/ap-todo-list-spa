@@ -1,50 +1,49 @@
 <template>
   <div id="login">
     <div class="row">
-      <div class="left-column col-lg-4 col-xs-12">
+      <div class="col-lg-4 col-xs-12">
+        <div class="left-column">
         <h1>Bring deine Projekte auf das nächste Level</h1>
-      <div>
-      <button type="button" class="btn" @click="showModal">
-        Login
-      </button>
-      <modal-container v-show="isModalVisible" @close="closeModal">
-        <template v-slot:header>
-          <h1>Login</h1>
-        </template>
-        <template v-slot:body>
-
-        </template>
-        <template v-slot:footer>
-
-        </template>
-      </modal-container>
+        <div class="login-container">
+          <button type="button" @click="show('login')">
+            <span>Login</span>
+          </button>
+          <modal name="login" height="auto" width="300">
+            <div class="h1">Login</div>
+            <form @submit.prevent="doLogin">
+              <input type="text" name="username" v-model="username" placeholder="Benutzername" />
+              <input type="password" name="password" v-model="password" placeholder="Passwort" />
+              <button type="submit">
+                <span>Anmelden</span>
+              </button>
+            </form>
+          </modal>
+        </div>
+        <div class="registration-container">
+          <button type="button" class="white" @click="show('registration')">
+          <span>Registrieren</span>
+          </button>
+          <modal name="registration" height="auto" width="300">
+            <div class="h1">Registrieren</div>
+            <form @submit.prevent="doRegistration">
+              <input type="text" name="usernameReg" v-model="usernameReg" placeholder="Benutzername" />
+              <input type="password" name="passwordReg" v-model="passwordReg" placeholder="Passwort" />
+              <input type="text" name="email" v-model="email" placeholder="E-Mail" />
+              <input type="text" name="city" v-model="city" placeholder="Stadt" />
+              <input type="text" name="postCode" v-model="postCode" placeholder="Postleitzahl" />
+              <button type="submit">
+                <span>Registrieren</span>
+              </button>
+            </form>
+          </modal>
+        </div>
       </div>
-      <div>
-      <button type="button" class="btn" @click="showModal">
-        Registrieren
-      </button>
-      <modal-container v-show="isModalVisible" @close="closeModal">
-        <template v-slot:header>
-          <h1>test</h1>
-        </template>
-        <template v-slot:body>
 
-        </template>
-        <template v-slot:footer>
-
-        </template>
-      </modal-container>
       </div>
-      <form @submit.prevent="doLogin">
-        <input type="text" name="username" v-model="username" placeholder="Benutzername" />
-        <input type="password" name="password" v-model="password" placeholder="Passwort" />
-        <button type="submit" class="btn">
-          <span>Login</span>
-        </button>
-      </form>
-      </div>
-      <div class="right-column col-lg-8 col-xs-12">
-        <img src="../assets/undraw_to_do_list_a49b.svg" />
+      <div class="col-lg-8 col-xs-12">
+        <div class="right-column">
+          <img src="../assets/undraw_to_do_list_a49b.svg" />
+        </div>
       </div>
     </div>
   </div>
@@ -52,7 +51,6 @@
 
 <script>
 import { mapActions } from 'vuex'
-import ModalContainer from './ModalContainer.vue'
 
 export default {
   data () {
@@ -62,9 +60,8 @@ export default {
       isModalVisible: false
     }
   },
-  components: { ModalContainer },
   methods: {
-    ...mapActions('Users', ['login']),
+    ...mapActions('Users', ['login', 'registration']),
     async doLogin () {
       const result = await this.login({
         username: this.username,
@@ -74,17 +71,26 @@ export default {
         alert('Something went wrong')
       }
     },
-    showModal () {
-      this.isModalVisible = true
+    async doRegistration () {
+      const result = await this.registration({
+        username: this.usernameReg,
+        password: this.passwordReg,
+        email: this.email,
+        city: this.city,
+        postCode: this.postCode
+      })
+      if (!result) {
+        alert('Something went wrong')
+      }
     },
-    closeModal () {
-      this.isModalVisible = false
+    show (modalName) {
+      this.$modal.show(modalName)
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 /* #login {
   width: 500px;
   border: 1px solid #cccccc;
@@ -97,5 +103,11 @@ export default {
 .right-column img {
   width: 100%;
   height: auto;
+  max-width: 950px;
+  margin-top: 50px;
+}
+
+.left-column {
+  padding: 10%;
 }
 </style>

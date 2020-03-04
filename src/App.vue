@@ -42,6 +42,12 @@ export default {
 </script>
 
 <style lang="scss">
+// Overall styling
+$alternative-grey: #F2F2F2;
+$grey: #E0E0E0;
+$blue-primary: #3399FF;
+$blue-light:  #EBF5FF;
+
 @import url('https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap');
 body {
   font-family: Lato;
@@ -75,7 +81,7 @@ body {
   }
 }
 
-h1 {
+h1, .h1 {
   font-family: Lato;
   margin-bottom: 15px;
   font-size: 32px;
@@ -84,7 +90,78 @@ h1 {
 
 input {
   width: 100%;
-  padding: 5px;
+  padding: 12px 8px;
   margin-bottom: 10px;
+  background-color: $alternative-grey;
+  border-radius: 5px;
+  border-style: none;
+  box-sizing: border-box;
+
+  &::placeholder {
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  font-family: Lato;
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 30px;
+  min-width: 180px;
+  border: 2px solid $blue-primary;
+  background-color: $blue-primary;
+
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    color: $blue-primary;
+    border: 2px solid $blue-primary;
+    background-color: #fff;
+
+    &.white {
+      color: #fff;
+      border: 2px solid $blue-primary;
+      background-color: $blue-primary;
+    }
+  }
+
+  // White background and blue font for the second button style
+  &.white {
+    color: $blue-primary;
+    border: 2px solid $blue-primary;
+    background-color: #fff;
+  }
+}
+
+// Modal styles
+.v--modal {
+  padding: 20px!important;
+  border-radius: 10px!important;
+
+  h1, .h1 {
+    text-align: center;
+  }
+
+  button[type="submit"] {
+    margin: 15px auto 0px auto;
+    display: block;
+  }
 }
 </style>

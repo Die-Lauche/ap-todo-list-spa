@@ -33,6 +33,25 @@ const actions = {
       return false
     }
   },
+  // Registrate the user and dispatch the mutation to change the state of the user when successfully registrated
+  async registration (context, credentials) {
+    try {
+      const response = await fetch('/api/registration', {
+        method: 'post',
+        body: JSON.stringify(credentials)
+      })
+      const data = await response.json()
+      if (data.user) {
+        context.dispatch('setUser', data.user)
+        return true
+      } else {
+        throw new Error(data.error)
+      }
+    } catch (error) {
+      context.commit('setError', error)
+      return false
+    }
+  },
   setUser (context, user) {
     context.commit('setUser', user)
     context.commit('setError', null)
