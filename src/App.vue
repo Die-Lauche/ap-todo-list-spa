@@ -118,7 +118,7 @@ input {
   font-size: 16px;
   width: 100%;
   padding: 20px 8px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
   background-color: $alternative-grey;
   border-radius: 5px;
   border-style: none;
@@ -132,6 +132,10 @@ input {
 
   &:focus {
     outline: none;
+  }
+
+  &.error {
+    border: 1px solid red;
   }
 }
 

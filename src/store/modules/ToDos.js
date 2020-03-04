@@ -6,8 +6,6 @@ const getters = {
   lists: state => state.lists
 }
 
-// Mutations for changing the state.
-// The state should only be modified through mutations and not through actions.
 const mutations = {
   setTodoStatus (state, [todo, status]) {
     state.lists.some(list => {
@@ -23,9 +21,6 @@ const mutations = {
   },
   setLists (state, lists) {
     state.lists = lists
-  },
-  setTodo (state, data) {
-    state.lists.find(item => item.id === data.listId).todos.push(data)
   }
 }
 
@@ -87,13 +82,9 @@ const actions = {
       const data = await response.json()
       context.commit('setLists', data.lists)
     } catch (error) {
-      // Log any error and set the lists empty
       console.error(error)
       context.commit('setLists', [])
     }
-  },
-  clear (context) {
-    context.commit('setLists', [])
   }
 }
 
