@@ -17,7 +17,7 @@ const actions = {
   // Do login, check if the entered credentials are correct with a call to the api
   async login (context, credentials) {
     try {
-      const response = await fetch('/src/assets/request/user.json', {
+      const response = await fetch('/request/user.json', {
         method: 'post',
         body: JSON.stringify(credentials)
       })
