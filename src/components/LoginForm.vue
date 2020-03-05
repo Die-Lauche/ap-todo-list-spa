@@ -29,9 +29,9 @@
             <form @submit.prevent="doRegistration">
               <input type="text" name="usernameReg" v-model="usernameReg" placeholder="Benutzername" />
               <input type="password" name="passwordReg" v-model="passwordReg" placeholder="Passwort" />
-              <input type="text" name="email" v-model="email" placeholder="E-Mail" />
+              <input type="email" name="email" v-model="email" placeholder="E-Mail" />
               <input type="text" name="city" v-model="city" placeholder="Stadt" />
-              <input type="text" name="postCode" v-model="postCode" placeholder="Postleitzahl" />
+              <input type="number" name="postCode" v-model="postCode" placeholder="Postleitzahl" />
               <button type="submit" class="btn">
                 <span>Registrieren</span>
               </button>
