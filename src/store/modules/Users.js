@@ -18,7 +18,7 @@ const actions = {
   async login (context, credentials) {
     try {
       const response = await fetch('/request/user.json', {
-        method: 'get',
+        method: 'post',
         body: JSON.stringify(credentials)
       })
       const data = await response.json()

@@ -1,8 +1,8 @@
 <template>
-  <li>
+  <div class="todo-item col-xs-12">
     <span :class="itemClass">{{ todo.content }}</span>
     <button @click="toggleCompletion">x</button>
-  </li>
+  </div>
 </template>
 
 <script>
@@ -38,6 +38,17 @@ export default {
 
 button {
   border: 1px solid #999;
-  border-radius: 5px;
+  border-radius: 8px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.todo-item {
+  font-family: Lato;
+  font-weight: 700;
+  background: #fff;
+  padding: 10px;
 }
 </style>
