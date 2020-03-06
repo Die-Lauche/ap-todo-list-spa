@@ -9,7 +9,7 @@ const getters = {
 }
 
 const mutations = {
-  setUser (state, user) { state.user = user },
+  setUser (state, user) { state.user = user; console.log('setUser', user) },
   setError (state, error) { state.error = error }
 }
 
@@ -17,7 +17,7 @@ const actions = {
   // Do login, check if the entered credentials are correct with a call to the api
   async login (context, credentials) {
     try {
-      const response = await fetch('/request/user.json', {
+      const response = await fetch('http://localhost:5000/request/user.json', {
         method: 'post',
         body: JSON.stringify(credentials)
       })

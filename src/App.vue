@@ -2,11 +2,11 @@
   <div id="App">
     <div id="nav" class="row">
       <div id="logo">
-        <img src="./assets/logo.png" />
+        <img src="./assets/logo.png">
       </div>
       <div v-if="authenticated" class="logout-btn">
-        <unicon class="user-circle" name="user-circle" fill="#1E1E1E"></unicon>
-        <a  href="#" @click.prevent="logout">Abmelden</a>
+        <unicon class="user-circle" name="user-circle" fill="#1E1E1E" />
+        <a href="#" @click.prevent="logout">Abmelden</a>
       </div>
     </div>
     <router-view v-if="authenticated" />
@@ -24,13 +24,6 @@ export default {
   computed: {
     ...mapGetters('Users', ['authenticated'])
   },
-  methods: {
-    logout () {
-      // Set the user to null so authenticated = false
-      // Should possibly be done while clearing the store.
-      this.$store.dispatch('Users/logout')
-    }
-  },
   mounted () {
     // Add the flexboxgrid css via cdn into the head. https://github.com/kristoferjoseph/flexboxgrid
     const flexboxgridCss = document.createElement('link')
@@ -38,6 +31,13 @@ export default {
     flexboxgridCss.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css')
     flexboxgridCss.setAttribute('type', 'text/css')
     document.head.appendChild(flexboxgridCss)
+  },
+  methods: {
+    logout () {
+      // Set the user to null so authenticated = false
+      // Should possibly be done while clearing the store.
+      this.$store.dispatch('Users/logout')
+    }
   }
 }
 </script>

@@ -1,7 +1,9 @@
 <template>
   <div class="todo-item col-xs-12">
     <span :class="itemClass">{{ todo.content }}</span>
-    <button @click="toggleCompletion">x</button>
+    <button @click="toggleCompletion">
+      x
+    </button>
   </div>
 </template>
 
@@ -49,6 +51,9 @@ li {
   font-family: Lato;
   font-weight: 700;
   background: #fff;
-  padding: 10px;
+  padding: 14px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  margin: 5px 0;
 }
 </style>

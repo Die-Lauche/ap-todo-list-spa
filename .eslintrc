@@ -1,14 +1,30 @@
 {
-    "root": true,
-    "env": {
-        "node": true
-    },
-    "extends": [
-        "plugin:vue/essential",
-        "@vue/standard"
-    ],
-    "parserOptions": {
-        "parser": "babel-eslint"
-    },
-    "rules": {}
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "extends": [
+    "standard",
+    "plugin:vue/recommended",
+    "@vue/standard"
+  ],
+  "parserOptions": {
+    "parser": "babel-eslint"
+  },
+  "rules": {
+    "vue/html-indent": ["error", 2, {
+      "attribute": 1,
+      "baseIndent": 1,
+      "closeBracket": 0,
+      "alignAttributesVertically": true,
+      "ignores": []
+    }],
+    "vue/max-attributes-per-line": ["error", {
+      "singleline": 4,
+      "multiline": {
+        "max": 2,
+        "allowFirstLine": true
+      }
+    }]
+  }
 }

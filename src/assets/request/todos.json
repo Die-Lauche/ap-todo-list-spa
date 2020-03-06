@@ -2,9 +2,9 @@
     {
         "id": "1",
         "content": "Hier Content 1",
-        "isCompleted": false,
+        "isCompleted": true,
         "isInProgress": false,
-        "isInTodo": true,
+        "isInTodo": false,
         "todo_list_id": "1"
     },
     {

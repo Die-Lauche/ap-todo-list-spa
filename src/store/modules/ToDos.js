@@ -1,13 +1,16 @@
 const state = {
   lists: [],
-  todos: {},
+  todos: [],
   currentList: {}
 }
 
 const getters = {
   lists: state => state.lists,
   todos: state => state.todos,
-  currentList: state => state.currentList
+  currentList: state => state.currentList,
+  todosCompleted: state => state.todos.filter(item => item.isCompleted === true),
+  todosProgressing: state => state.todos.filter(item => item.isInProgress === true),
+  todosTodo: state => state.todos.filter(item => item.isInTodo === true)
 }
 
 const mutations = {
@@ -27,18 +30,10 @@ const mutations = {
     state.lists = lists
   },
   setTodos (state, todos) {
-    const rawTodos = todos.slice()
-    const filteredTodos = {}
-
-    filteredTodos.isCompleted = rawTodos.filter(item => item.isCompleted === true)
-    filteredTodos.isInProgress = rawTodos.filter(item => item.isInProgress === true)
-    filteredTodos.isInTodo = rawTodos.filter(item => item.isInTodo === true)
-
-    state.todos = filteredTodos
+    state.todos = todos.slice()
   },
   setCurrentList (state, listId) {
-    const currentList = state.lists.find(item => item.id === listId)
-    state.currentList = currentList
+    state.currentList = state.lists.find(item => item.id === listId) || {}
   }
 }
 
