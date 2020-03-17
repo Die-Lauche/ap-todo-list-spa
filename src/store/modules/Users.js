@@ -19,6 +19,9 @@ const actions = {
     try {
       const response = await fetch('https://ap-todo-list.herokuapp.com/checkLogin2', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(credentials)
       })
       const data = await response.json()
