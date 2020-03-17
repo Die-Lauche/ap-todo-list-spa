@@ -18,7 +18,7 @@ const actions = {
   async login (context, credentials) {
     try {
       const response = await fetch('https://ap-todo-list.herokuapp.com/checkLogin2', {
-        method: 'post',
+        method: 'POST',
         body: JSON.stringify(credentials)
       })
       const data = await response.json()
