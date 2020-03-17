@@ -30,7 +30,7 @@ const actions = {
       }
     } catch (error) {
       context.commit('setError', error)
-      console.log(error)
+      console.log('Hier', error)
       return false
     }
   },
