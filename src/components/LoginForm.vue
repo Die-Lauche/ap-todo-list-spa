@@ -1,48 +1,52 @@
 <template>
   <div id="login">
-    <div id="blue-ball"></div>
+    <div id="blue-ball" />
     <div class="row">
       <div class="col-lg-5 col-xs-12">
         <div class="left-column">
-        <h1>Bring deine Projekte auf das nächste Level</h1>
-        <div class="login-container">
-          <button class="btn btn--large" type="button" @click="show('login')">
-            <span>Login</span>
-          </button>
-          <modal name="login" height="auto" width="300">
-            <div class="h1">Login</div>
-            <form @submit.prevent="doLogin">
-              <input type="text" name="username" v-model="username" placeholder="Benutzername" />
-              <input type="password" name="password" v-model="password" placeholder="Passwort" />
-              <button type="submit" class="btn">
-                <span>Anmelden</span>
-              </button>
-            </form>
-          </modal>
+          <h1>Bring deine Projekte auf das nächste Level</h1>
+          <div class="login-container">
+            <button class="btn btn--large" type="button" @click="show('login')">
+              <span>Login</span>
+            </button>
+            <modal name="login" height="auto" width="300">
+              <div class="h1">
+                Login
+              </div>
+              <form @submit.prevent="doLogin">
+                <input v-model="username" type="text" name="username" placeholder="Benutzername">
+                <input v-model="password" type="password" name="password" placeholder="Passwort">
+                <button type="submit" class="btn">
+                  <span>Anmelden</span>
+                </button>
+              </form>
+            </modal>
+          </div>
+          <div class="registration-container">
+            <button type="button" class="btn btn--large white" @click="show('registration')">
+              <span>Registrieren</span>
+            </button>
+            <modal name="registration" height="auto" width="300">
+              <div class="h1">
+                Registrieren
+              </div>
+              <form @submit.prevent="doRegistration">
+                <input v-model="usernameReg" type="text" name="usernameReg" placeholder="Benutzername">
+                <input v-model="passwordReg" type="password" name="passwordReg" placeholder="Passwort">
+                <input v-model="email" type="email" name="email" placeholder="E-Mail">
+                <input v-model="city" type="text" name="city" placeholder="Stadt">
+                <input v-model="postCode" type="number" name="postCode" placeholder="Postleitzahl">
+                <button type="submit" class="btn">
+                  <span>Registrieren</span>
+                </button>
+              </form>
+            </modal>
+          </div>
         </div>
-        <div class="registration-container">
-          <button type="button" class="btn btn--large white" @click="show('registration')">
-          <span>Registrieren</span>
-          </button>
-          <modal name="registration" height="auto" width="300">
-            <div class="h1">Registrieren</div>
-            <form @submit.prevent="doRegistration">
-              <input type="text" name="usernameReg" v-model="usernameReg" placeholder="Benutzername" />
-              <input type="password" name="passwordReg" v-model="passwordReg" placeholder="Passwort" />
-              <input type="email" name="email" v-model="email" placeholder="E-Mail" />
-              <input type="text" name="city" v-model="city" placeholder="Stadt" />
-              <input type="number" name="postCode" v-model="postCode" placeholder="Postleitzahl" />
-              <button type="submit" class="btn">
-                <span>Registrieren</span>
-              </button>
-            </form>
-          </modal>
-        </div>
-      </div>
       </div>
       <div class="col-lg-7 col-xs-12 end-xs">
         <div class="right-column">
-          <img src="../assets/undraw_to_do_list_a49b.svg" />
+          <img src="../assets/undraw_to_do_list_a49b.svg">
         </div>
       </div>
     </div>
