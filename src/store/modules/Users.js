@@ -17,20 +17,26 @@ const actions = {
   // Do login, check if the entered credentials are correct with a call to the api
   async login (context, credentials) {
     try {
-      const response = await fetch('https://ap-todo-list.herokuapp.com/checkLogin2', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
+      // const response = await fetch('https://ap-todo-list.herokuapp.com/checkLogin2', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify(credentials)
+      // })
+      const oReq = new XMLHttpRequest()
+      oReq.addEventListener('load', function () {
+        const data = this.responseText
+        console.log(data)
+        // if (data) {
+        //   context.dispatch('setUser', data)
+        //   return true
+        // } else {
+        //   throw new Error(data.error)
+        // }
       })
-      const data = await response.json()
-      if (data) {
-        context.dispatch('setUser', data)
-        return true
-      } else {
-        throw new Error(data.error)
-      }
+      oReq.open('POST', 'https://ap-todo-list.herokuapp.com/checkLogin2')
+      oReq.send()
     } catch (error) {
       context.commit('setError', error)
       console.log('Hier', error)
