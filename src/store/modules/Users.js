@@ -36,8 +36,11 @@ const actions = {
   async registration (context, credentials) {
     try {
       const response = await fetch('https://ap-todo-list.herokuapp.com/register', {
-        method: 'post',
-        body: JSON.stringify(credentials)
+        method: 'POST',
+        body: JSON.stringify(credentials),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
       const data = await response.json()
       if (data.user) {
