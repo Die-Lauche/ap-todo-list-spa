@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-item">
+  <div v-popover:foo class="todo-item">
     <div class="row">
       <div v-if="!todo.isInTodo" class="col-xs-2">
         <button class="moveToTodo" @click="changeState(todo, 'left')">
@@ -27,6 +27,9 @@
         </button>
       </div>
     </div>
+    <popover name="foo">
+      Hello
+    </popover>
   </div>
 </template>
 
