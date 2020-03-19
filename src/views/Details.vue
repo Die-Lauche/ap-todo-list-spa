@@ -109,11 +109,13 @@ h1, .h1 {
 .lane-wrapper {
 
   .lane {
+    position: relative;
     display: inline-block;
     vertical-align: top;
-    padding: 12px;
+    padding: 12px 12px 70px 12px;
     background-color: #F3F5F6;
     border-radius: 8px;
+    min-height: 650px;
   }
 
   .lane-completed {
@@ -124,19 +126,26 @@ h1, .h1 {
   }
 }
 
-.add-new-wrapper input {
-  margin-top: 10px;
-  margin-bottom: 0;
-  background: #3399FF;
-  color: #fff;
-  padding: 14px 12px;
-  font-weight: 400;
+.add-new-wrapper {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  left: 12px;
 
-    &::placeholder {
+    input {
+      margin-top: 10px;
+      margin-bottom: 0;
+      background: #3399FF;
       color: #fff;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 14px 12px;
       font-weight: 400;
+
+      &::placeholder {
+        color: #fff;
+        font-weight: 400;
+     }
   }
+
 }
 
 </style>

@@ -5,11 +5,11 @@ import router from './router'
 import store from './store'
 import VModal from 'vue-js-modal'
 import Unicon from 'vue-unicons'
-import { uniUserCircle, uniArrowLeft } from 'vue-unicons/src/icons'
+import { uniUserCircle, uniArrowLeft, uniArrowRight, uniPlus } from 'vue-unicons/src/icons'
 
 import './server'
 
-Unicon.add([uniUserCircle, uniArrowLeft])
+Unicon.add([uniUserCircle, uniArrowLeft, uniArrowRight, uniPlus])
 Vue.use(Unicon)
 
 Vue.use(VModal, { dynamic: true })
