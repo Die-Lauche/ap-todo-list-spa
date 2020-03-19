@@ -25,8 +25,6 @@ const actions = {
       if (data) {
         context.dispatch('setUser', data)
         return true
-      } else {
-        throw new Error(data.error)
       }
     } catch (error) {
       context.commit('setError', error)
