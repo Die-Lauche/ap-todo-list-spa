@@ -82,15 +82,11 @@ export default {
     },
     async doRegistration () {
       const result = await this.registration({
-        user: {
-          username: this.usernameReg,
-          password: this.passwordReg,
-          email: this.email
-        },
-        city: {
-          name: this.city,
-          plz: this.postCode
-        }
+        username: this.usernameReg,
+        password: this.passwordReg,
+        email: this.email,
+        name: this.city,
+        plz: this.postCode
       })
       if (!result) {
         alert('Something went wrong')
