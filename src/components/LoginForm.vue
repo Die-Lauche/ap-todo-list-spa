@@ -34,8 +34,6 @@
                 <input v-model="usernameReg" type="text" name="usernameReg" placeholder="Benutzername">
                 <input v-model="passwordReg" type="password" name="passwordReg" placeholder="Passwort">
                 <input v-model="email" type="email" name="email" placeholder="E-Mail">
-                <input v-model="city" type="text" name="city" placeholder="Stadt">
-                <input v-model="postCode" type="number" name="postCode" placeholder="Postleitzahl">
                 <button type="submit" class="btn">
                   <span>Registrieren</span>
                 </button>
@@ -64,8 +62,6 @@ export default {
       usernameReg: '',
       passwordReg: '',
       email: '',
-      city: '',
-      postCode: '',
       isModalVisible: false
     }
   },
@@ -84,9 +80,7 @@ export default {
       const result = await this.registration({
         username: this.usernameReg,
         password: this.passwordReg,
-        email: this.email,
-        name: this.city,
-        plz: this.postCode
+        email: this.email
       })
       if (!result) {
         alert('Something went wrong')
