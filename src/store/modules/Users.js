@@ -35,7 +35,7 @@ const actions = {
   // Registrate the user and dispatch the mutation to change the state of the user when successfully registrated
   async registration (context, credentials) {
     try {
-      const response = await fetch('http://localhost:5000/request/user.json', {
+      const response = await fetch('https://ap-todo-list.herokuapp.com/register', {
         method: 'post',
         body: JSON.stringify(credentials)
       })
