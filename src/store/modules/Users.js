@@ -17,12 +17,9 @@ const actions = {
   // Do login, check if the entered credentials are correct with a call to the api
   async login (context, credentials) {
     try {
-      const response = await fetch('http://https://ap-todo-list.herokuapp.com/checkLogin2', {
+      const response = await fetch('http://localhost:5000/request/user.json', {
         method: 'POST',
-        body: JSON.stringify(credentials),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify(credentials)
       })
       const data = await response.json()
       if (data) {

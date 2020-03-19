@@ -1,42 +1,32 @@
 <template>
-  <div class="todo-item col-xs-12">
-    <button v-if="todo.isInProgress" class="moveToTodo" @click="changeState(todo, 'moveToTodo')">
-      <unicon
-        class="arrow-left"
-        name="arrow-left"
-        fill="#1E1E1E"
-        width="20"
-        height="20"
-      />
-    </button>
-    <button v-if="todo.isCompleted" class="moveToInProgress" @click="changeState(todo, 'moveToInProgress')">
-      <unicon
-        class="arrow-left"
-        name="arrow-left"
-        fill="#1E1E1E"
-        width="20"
-        height="20"
-      />
-    </button>
-    <span :class="itemClass">{{ todo.content }}</span>
-    <button v-if="todo.isInTodo" class="moveToInProgress" @click="changeState(todo, 'moveToInProgress')">
-      <unicon
-        class="arrow-right"
-        name="arrow-right"
-        fill="#1E1E1E"
-        width="20"
-        height="20"
-      />
-    </button>
-    <button v-if="todo.isInProgress" class="moveToDone" @click="changeState(todo, 'moveToDone')">
-      <unicon
-        class="arrow-right"
-        name="arrow-right"
-        fill="#1E1E1E"
-        width="20"
-        height="20"
-      />
-    </button>
+  <div class="todo-item">
+    <div class="row">
+      <div v-if="!todo.isInTodo" class="col-xs-2">
+        <button class="moveToTodo" @click="changeState(todo, 'left')">
+          <unicon
+            class="arrow-left"
+            name="arrow-left"
+            fill="#1E1E1E"
+            width="20"
+            height="20"
+          />
+        </button>
+      </div>
+      <div :class="centerCol">
+        <span :class="itemClass">{{ todo.content }}</span>
+      </div>
+      <div v-if="!todo.isCompleted" class="col-xs-2 end-xs">
+        <button class="moveToInProgress" @click="changeState(todo, 'right')">
+          <unicon
+            class="arrow-right"
+            name="arrow-right"
+            fill="#1E1E1E"
+            width="20"
+            height="20"
+          />
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -50,18 +40,16 @@ export default {
   },
   computed: {
     itemClass () {
-      return this.todo.completed ? 'complete' : ''
+      return this.todo.isCompleted ? 'complete' : ''
+    },
+    centerCol () {
+      return (this.todo.isInTodo || this.todo.isCompleted) ? 'col-xs-10' : 'col-xs-8'
     }
   },
   methods: {
     // Call the action to toggle the state based on the button pressed
-    changeState (todo, stateChange) {
-      this.$store.dispatch('ToDos/setTodoStatus', [todo, stateChange])
-      // if (this.todo.completed) {
-      //   this.$store.dispatch('ToDos/setUndone', this.todo.id)
-      // } else {
-      //   this.$store.dispatch('ToDos/setDone', this.todo.id)
-      // }
+    changeState (todo, direction) {
+      this.$store.dispatch('ToDos/checkAndMoveToDo', [todo, direction])
     }
   }
 }
@@ -88,15 +76,24 @@ li {
   padding: 14px 12px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  margin: 5px 0;
+  margin: 10px 0;
 
   button {
     border: none;
-    border-radius: 50%;
+    border-radius: 50px;
     vertical-align: middle;
-    padding: 1px;
+    padding: 2px;
     cursor: pointer;
-    margin: 0 10px;
+    width: 25px;
+    height: 25px;
+
+    .unicon {
+      display: flex;
+    }
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 </style>

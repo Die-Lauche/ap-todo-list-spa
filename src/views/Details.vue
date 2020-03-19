@@ -12,34 +12,34 @@
       </router-link>
       <h1>{{ currentList.title }}</h1>
       <div class="lane-wrapper row">
-        <div class="lane lane-todo col-lg-4 col-xs-12">
-          <div class="lane-headline">
-            To Do
-          </div>
-          <div class="row">
+        <div class="col-lg-4 col-xs-12">
+          <div class="lane lane-todo">
+            <div class="lane-headline">
+              To Do
+            </div>
             <todo-item
               v-for="todo in todosTodo"
               :key="todo.id"
               :todo="todo"
             />
-          </div>
-          <div class="add-new-wrapper">
-            <input type="text" placeholder="Neue Aufgabe...">
+            <div class="add-new-wrapper">
+              <input v-model="newTodo" type="text" placeholder="Neue Aufgabe..." @keyup.enter="addTodo()">
+            </div>
           </div>
         </div>
-        <div class="lane lane-progress col-lg-4 col-xs-12">
-          <div class="lane-headline">
-            In Arbeit
-          </div>
-          <div class="row">
+        <div class="col-lg-4 col-xs-12">
+          <div class="lane lane-progress">
+            <div class="lane-headline">
+              In Arbeit
+            </div>
             <todo-item v-for="todo in todosProgressing" :key="todo.id" :todo="todo" />
           </div>
         </div>
-        <div class="lane lane-completed col-lg-4 col-xs-12">
-          <div class="lane-headline">
-            Erledigt
-          </div>
-          <div class="row">
+        <div class="col-lg-4 col-xs-12">
+          <div class="lane lane-completed">
+            <div class="lane-headline">
+              Erledigt
+            </div>
             <todo-item
               v-for="todo in todosCompleted" :key="todo.id"
               :todo="todo"
@@ -57,6 +57,11 @@ import TodoItem from '../components/TodoItem'
 
 export default {
   components: { TodoItem },
+  data () {
+    return {
+      newTodo: ''
+    }
+  },
   computed: {
     ...mapGetters('ToDos', [
       'todos',
@@ -70,6 +75,12 @@ export default {
     console.log(this.$route.params.listId)
     this.$store.dispatch('ToDos/setCurrentList', this.$route.params.listId)
     this.$store.dispatch('ToDos/getListTodos', this.$route.params.listId)
+  },
+  methods: {
+    addTodo () {
+      this.$store.dispatch('ToDos/addTodo', this.newTodo)
+      this.newTodo = ''
+    }
   }
 }
 </script>
@@ -86,6 +97,7 @@ h1, .h1 {
 
 .arrow-left {
   vertical-align: sub;
+  margin-right: 16px;
 
   svg {
     &:hover {
@@ -110,12 +122,14 @@ h1, .h1 {
 
   .lane {
     position: relative;
-    display: inline-block;
-    vertical-align: top;
-    padding: 12px 12px 70px 12px;
+    display: block;
+    padding: 12px;
     background-color: #F3F5F6;
     border-radius: 8px;
     min-height: 650px;
+    max-height: 600px;
+    overflow: hidden;
+    overflow-y: auto;
   }
 
   .lane-completed {
@@ -127,18 +141,28 @@ h1, .h1 {
 }
 
 .add-new-wrapper {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  left: 12px;
+  position: sticky;
+  bottom: 0;
+  padding: 14px 12px;
+  background: #3399FF;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 
     input {
-      margin-top: 10px;
       margin-bottom: 0;
-      background: #3399FF;
       color: #fff;
-      padding: 14px 12px;
       font-weight: 400;
+      padding: 0;
+      padding-bottom: 5px;
+      background: #3399FF;
+      border-radius: 0;
+      border-bottom: 1px solid #ffffff52;
+
+      transition: border-bottom .1s ease-in;
+
+      &:hover, &:focus {
+        border-bottom: 1px solid #fff;
+      }
 
       &::placeholder {
         color: #fff;

@@ -1,11 +1,13 @@
 <template>
-  <router-link :to="{ name: 'details', params: { listId: list.id }}" class="col-lg-4 project-link">
-    <div class="todo-list">
-      <div class="h1 list-title">
-        {{ list.title }}
+  <div class="col-lg-4">
+    <router-link :to="{ name: 'details', params: { listId: list.id }}" class="project-link middle-xs">
+      <div class="todo-list">
+        <div class="h1 list-title">
+          {{ list.title }}
+        </div>
       </div>
-    </div>
-  </router-link>
+    </router-link>
+  </div>
 </template>
 
 <script>
@@ -44,17 +46,19 @@ export default {
 <style lang="scss" scoped>
 
 .project-link {
+  display: block;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .todo-list {
   display: inline-block;
-  padding: 12px;
+  padding: 16px;
 
   .list-title {
     color: #1E1E1E;
     font-size: 16px;
+    margin-bottom: 0;
   }
 }
 

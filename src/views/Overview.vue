@@ -1,17 +1,18 @@
 <template>
   <div id="overview">
     <div class="project-wrapper">
-      <h1>Projekte</h1>
-      <button class="project-new-btn btn" @click="show('newProject')">
-        <unicon
-          class="plus"
-          name="plus"
-          fill="#fff"
-          width="20"
-          height="20"
-        />
-        Hinzufügen
-      </button>
+      <div class="header-wrapper">
+        <h1>Projekte</h1>
+        <button class="project-new-btn btn" @click="show('newProject')">
+          <unicon
+            class="plus"
+            name="plus"
+            width="20"
+            height="20"
+          />
+          Hinzufügen
+        </button>
+      </div>
       <div class="todo-lists row">
         <todo-list
           v-for="list in lists"
@@ -73,10 +74,29 @@ h1 {
 }
 
 .project-new-btn {
+  align-self: center;
+  max-height: 50px;
+  margin: 0;
+
+  .plus {
+    fill: #fff;
+    vertical-align: middle;
+  }
   &:hover {
-    .plus{
+    .plus {
       fill: #3399FF;
     }
+
   }
+}
+
+.header-wrapper {
+  display: flex;
+  margin-bottom: 30px;
+
+  h1 {
+    flex-grow: 1;
+  }
+
 }
 </style>

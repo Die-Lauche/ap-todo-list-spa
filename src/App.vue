@@ -191,7 +191,7 @@ input {
 
 // Modal styles
 .v--modal {
-  padding: 20px!important;
+  padding: 35px!important;
   border-radius: 10px!important;
 
   h1, .h1 {

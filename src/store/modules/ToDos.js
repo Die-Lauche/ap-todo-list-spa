@@ -33,8 +33,8 @@ const mutations = {
     localTodo.isInTodo = false
     localTodo.isCompleted = true
   },
-  add (state, todoData) {
-    state.todos.push({ id: 100, todo_list_id: todoData[0], content: todoData[1], completed: false })
+  addNewTodo (state, todoData) {
+    state.todos.push(todoData)
   },
   setLists (state, lists) {
     state.lists = lists
@@ -48,6 +48,19 @@ const mutations = {
 }
 
 const actions = {
+  async addTodo (context, todo) {
+    const todoData = { todo_list_id: state.currentList.listId, content: todo, isInProgress: false, isInTodo: true, isCompleted: false }
+    try {
+      await fetch('/', {
+        method: 'post',
+        body: JSON.stringify(todoData)
+      })
+      context.commit('addNewTodo', todoData)
+    } catch (error) {
+      console.error(error)
+      alert('Something went wrong!') // TODO: Change the error message
+    }
+  },
   // Set the todo done
   async setDone (context, todoId) {
     try {
@@ -64,40 +77,27 @@ const actions = {
       alert('Something went wrong while setting the state of the todo!') // TODO: Change the error message
     }
   },
-  // Sets the todoStatus based on a string we get from the clicked button
-  setTodoStatus (context, [todo, statusChange]) {
-    switch (statusChange) {
-      case 'moveToInProgress':
-        // Move the todo to in Progress
-        context.commit('setTodoInProgress', todo)
+  // Check the todo direction and set the status
+  checkAndMoveToDo (context, [todo, direction]) {
+    switch (direction) {
+      case 'left':
+        if (todo.isCompleted) {
+          context.commit('setTodoInProgress', todo)
+        } else if (todo.isInProgress) {
+          context.commit('setTodoTodo', todo)
+        }
         break
-      case 'moveToDone':
-        // Move the todo to done
-        context.commit('setTodoCompleted', todo)
-        break
-      case 'moveToTodo':
-        // Move the todo to todo
-        context.commit('setTodoTodo', todo)
+      case 'right':
+        if (todo.isInTodo) {
+          context.commit('setTodoInProgress', todo)
+        } else if (todo.isInProgress) {
+          context.commit('setTodoCompleted', todo)
+        }
         break
     }
   },
   createNewList (context, userId) {
     // TODO add new list to the user
-  },
-  // Add a new todo to the specified list (todoData contains [0] = the list id, [1] = the text)
-  async addTodo (context, [listId, content]) {
-    try {
-      // Send the new todo content to the api so it can be added to the db
-      // We already get the listid through the params so no need to add it to the body
-      const response = await fetch('/api/todo', {
-        method: 'POST',
-        body: JSON.stringify({ listId, content })
-      })
-      const data = await response.json()
-      context.commit('setTodo', data.todo)
-    } catch (error) {
-      console.error(error)
-    }
   },
   // Load the todo lists for the currently logged in user
   async loadForUser (context, userId) {
