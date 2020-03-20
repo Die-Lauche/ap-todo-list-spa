@@ -109,7 +109,7 @@ const actions = {
   // Load the todo lists for the currently logged in user
   async loadForUser (context, userId) {
     try {
-      const response = await fetch(`https://ap-todo-list.herokuapp.com/listForUser?userId=${userId}`)
+      const response = await fetch(`https://ap-todo-list.herokuapp.com/getTodoList?userId=${userId}`)
       // const response = await fetch('http://localhost:5000/request/todoList.json')
       const data = await response.json()
       context.commit('setLists', data)
