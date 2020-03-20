@@ -36,7 +36,7 @@ export default {
     addTodo () {
       console.log(this.todoText)
       // Call action to add a new todo to the list
-      this.$store.dispatch('ToDos/addTodo', [this.list.id, this.todoText])
+      this.$store.dispatch('ToDos/addTodo', this.todoText)
       this.todoText = ''
     }
   }
