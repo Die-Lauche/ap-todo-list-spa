@@ -31,14 +31,6 @@ export default {
     // todos () {
     //   return this.todosForList(this.list.id)
     // }
-  },
-  methods: {
-    addTodo () {
-      console.log(this.todoText)
-      // Call action to add a new todo to the list
-      this.$store.dispatch('ToDos/addTodo', this.todoText)
-      this.todoText = ''
-    }
   }
 }
 </script>

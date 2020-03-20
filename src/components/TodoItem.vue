@@ -53,6 +53,11 @@ export default {
     // Call the action to toggle the state based on the button pressed
     changeState (todo, direction) {
       this.$store.dispatch('ToDos/checkAndMoveToDo', [todo, direction])
+    },
+    addTodo () {
+      // Call action to add a new todo to the list
+      this.$store.dispatch('ToDos/addTodo', this.todoText)
+      this.todoText = ''
     }
   }
 }
