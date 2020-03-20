@@ -42,13 +42,18 @@ import TodoList from '../components/TodoList'
 
 export default {
   components: { TodoList },
+  data () {
+    return {
+      projectName: ''
+    }
+  },
   computed: {
     ...mapGetters('ToDos', ['lists'])
   },
   methods: {
     // Add a new list to the user
-    addNewList () {
-      this.$store.dispatch('ToDos/createNewList', this.userId)
+    addNewProject () {
+      this.$store.dispatch('ToDos/createNewList', [this.projectName, this.userId])
     },
     // Show the modal when clicked
     show (modalName) {

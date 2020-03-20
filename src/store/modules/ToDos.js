@@ -36,6 +36,9 @@ const mutations = {
   addNewTodo (state, todoData) {
     state.todos.push(todoData)
   },
+  addNewList (state, list) {
+    state.lists.push(list)
+  },
   setLists (state, lists) {
     state.lists = lists
   },
@@ -48,39 +51,28 @@ const mutations = {
 }
 
 const actions = {
+  // Add a new todo
   async addTodo (context, todo) {
+    // Prepare the todo object
     const todoData = { todo_list_id: state.currentList.listId, content: todo, isInProgress: false, isInTodo: true, isCompleted: false }
+    // Send an api call to add the todo
     try {
       await fetch('/', {
         method: 'post',
         body: JSON.stringify(todoData)
       })
+      // Set the state
       context.commit('addNewTodo', todoData)
     } catch (error) {
       console.error(error)
-      alert('Something went wrong!') // TODO: Change the error message
-    }
-  },
-  // Set the todo done
-  async setDone (context, todoId) {
-    try {
-      const response = await fetch(`/api/todo/${todoId}`, {
-        method: 'patch',
-        body: JSON.stringify({
-          completed: true
-        })
-      })
-      const data = await response.json()
-      context.commit('setTodoStatus', [data.todo, true])
-    } catch (error) {
-      console.error(error)
-      alert('Something went wrong while setting the state of the todo!') // TODO: Change the error message
+      alert('Something went wrong while adding a new todo!') // TODO: Change the error message
     }
   },
   // Check the todo direction and set the status
   checkAndMoveToDo (context, [todo, direction]) {
     switch (direction) {
       case 'left':
+        // If the todo is completed and the pressed button is left it can only get set to in progress
         if (todo.isCompleted) {
           context.commit('setTodoInProgress', todo)
         } else if (todo.isInProgress) {
@@ -96,17 +88,33 @@ const actions = {
         break
     }
   },
-  createNewList (context, userId) {
+  async createNewList (context, listName, userId) {
     // TODO add new list to the user
+    const listData = { id: userId, title: listName }
+    try {
+      const response = await fetch('https://ap-todo-list.herokuapp.com/addNewList', {
+        method: 'POST',
+        body: JSON.stringify(listData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      // const response = await fetch('http://localhost:5000/request/todoList.json')
+      const data = await response.json()
+      context.commit('addNewList', data)
+    } catch (error) {
+      console.error(error)
+    }
   },
   // Load the todo lists for the currently logged in user
   async loadForUser (context, userId) {
     try {
-      // const response = await fetch(`/listForUser?userId=${userId}`)
-      const response = await fetch('http://localhost:5000/request/todoList.json')
+      const response = await fetch(`https://ap-todo-list.herokuapp.com/listForUser?userId=${userId}`)
+      // const response = await fetch('http://localhost:5000/request/todoList.json')
       const data = await response.json()
       context.commit('setLists', data)
     } catch (error) {
+      // Set the error and clear the lists.
       console.error(error)
       context.commit('setLists', [])
     }
@@ -114,11 +122,12 @@ const actions = {
   // Get the todos for a specified listid
   async getListTodos (context, listId) {
     try {
-      // const response = await fetch(`/todosForList?listId=${listId}`)
-      const response = await fetch('http://localhost:5000/request/todos.json')
+      const response = await fetch(`https://ap-todo-list.herokuapp.com/todosForList?listId=${listId}`)
+      // const response = await fetch('http://localhost:5000/request/todos.json')
       const data = await response.json()
       context.commit('setTodos', data)
     } catch (error) {
+      // Set the error and clear the todos.
       console.error(error)
       context.commit('setTodos', [])
     }
