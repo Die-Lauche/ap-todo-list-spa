@@ -54,15 +54,19 @@ const actions = {
   // Add a new todo
   async addTodo (context, todo) {
     // Prepare the todo object
-    const todoData = { todo_list_id: state.currentList.listId, content: todo, isInProgress: false, isInTodo: true, isCompleted: false }
+    const todoData = { content: todo, isCompleted: false, isInProgress: false, isInTodo: true, todo_list_id: state.currentList.listId }
     // Send an api call to add the todo
     try {
-      await fetch('/', {
+      const response = await fetch('https://ap-todo-list.herokuapp.com/addTodo', {
         method: 'post',
-        body: JSON.stringify(todoData)
+        body: JSON.stringify(todoData),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
       // Set the state
-      context.commit('addNewTodo', todoData)
+      const data = await response.json()
+      context.commit('addNewTodo', data)
     } catch (error) {
       console.error(error)
       alert('Something went wrong while adding a new todo!') // TODO: Change the error message
