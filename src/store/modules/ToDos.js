@@ -55,6 +55,7 @@ const actions = {
   async addTodo (context, todo) {
     // Prepare the todo object
     const currentList = state.currentList.listId
+    console.log(currentList, state.currentList)
     const todoData = { content: todo, isCompleted: false, isInProgress: false, isInTodo: true, todoList: { id: currentList } }
     // Send an api call to add the todo
     try {
