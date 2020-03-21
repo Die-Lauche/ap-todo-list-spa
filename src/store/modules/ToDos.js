@@ -55,7 +55,7 @@ const actions = {
   async addTodo (context, todo) {
     // Prepare the todo object
     const currentList = state.currentList.listId
-    const todoData = { content: todo, isCompleted: false, isInProgress: false, isInTodo: true, todo_list_id: currentList }
+    const todoData = { content: todo, isCompleted: false, isInProgress: false, isInTodo: true, todoList: { id: currentList } }
     // Send an api call to add the todo
     try {
       const response = await fetch('https://ap-todo-list.herokuapp.com/addTodo', {
