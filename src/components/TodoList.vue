@@ -2,8 +2,23 @@
   <div class="col-lg-4">
     <router-link :to="{ name: 'details', params: { listId: list.id }}" class="project-link middle-xs">
       <div class="todo-list">
-        <div class="h1 list-title">
-          {{ list.title }}
+        <div class="row">
+          <div class="col-xs-10">
+            <div class="h1 list-title">
+              {{ list.title }}
+            </div>
+          </div>
+          <div class="col-xs-2 end-xs">
+            <button class="trash" @click="deleteList(list)">
+              <unicon
+                class="trash-alt"
+                name="trash-alt"
+                fill="#fff"
+                width="20"
+                height="20"
+              />
+            </button>
+          </div>
         </div>
       </div>
     </router-link>
@@ -26,11 +41,10 @@ export default {
       todoText: ''
     }
   },
-  computed: {
-    // Return the todos from a specified list
-    // todos () {
-    //   return this.todosForList(this.list.id)
-    // }
+  methods: {
+    deleteList (event, list) {
+      this.$store.dispatch('ToDos/deleteList', list)
+    }
   }
 }
 </script>
@@ -44,14 +58,52 @@ export default {
 }
 
 .todo-list {
-  display: inline-block;
+  display: flex;
   padding: 16px;
 
   .list-title {
     color: #1E1E1E;
     font-size: 16px;
     margin-bottom: 0;
+    text-decoration: none;
+  }
+
+   &:hover {
+    .trash{
+      opacity: 1;
+    }
   }
 }
 
+button {
+  border: none;
+  border-radius: 50px;
+  vertical-align: middle;
+  padding: 2px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+
+  .unicon {
+    display: flex;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.trash {
+  background: #FF3366;
+  opacity: 0;
+  transition: opacity .1s ease-in;
+}
+
+.row {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
 </style>

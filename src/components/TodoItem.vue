@@ -1,6 +1,6 @@
 <template>
-  <div v-popover:foo class="todo-item">
-    <div class="row">
+  <div class="todo-item">
+    <div class="row middle-xs">
       <div v-if="!todo.isInTodo" class="col-xs-2">
         <button class="moveToTodo" @click="changeState(todo, 'left')">
           <unicon
@@ -15,6 +15,17 @@
       <div :class="centerCol">
         <span :class="itemClass">{{ todo.content }}</span>
       </div>
+      <div class="col-xs-2">
+        <button class="trash" @click="deleteTodo(todo)">
+          <unicon
+            class="trash-alt"
+            name="trash-alt"
+            fill="#fff"
+            width="20"
+            height="20"
+          />
+        </button>
+      </div>
       <div v-if="!todo.isCompleted" class="col-xs-2 end-xs">
         <button class="moveToInProgress" @click="changeState(todo, 'right')">
           <unicon
@@ -27,9 +38,6 @@
         </button>
       </div>
     </div>
-    <popover name="foo">
-      Hello
-    </popover>
   </div>
 </template>
 
@@ -46,13 +54,16 @@ export default {
       return this.todo.isCompleted ? 'complete' : ''
     },
     centerCol () {
-      return (this.todo.isInTodo || this.todo.isCompleted) ? 'col-xs-10' : 'col-xs-8'
+      return (this.todo.isInTodo || this.todo.isCompleted) ? 'col-xs-8' : 'col-xs-6'
     }
   },
   methods: {
     // Call the action to toggle the state based on the button pressed
     changeState (todo, direction) {
       this.$store.dispatch('ToDos/checkAndMoveToDo', [todo, direction])
+    },
+    deleteTodo (todo) {
+      this.$store.dispatch('ToDos/deleteTodo', todo)
     }
   }
 }
@@ -81,6 +92,12 @@ li {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   margin: 10px 0;
 
+  &:hover {
+    .trash{
+      opacity: 1;
+    }
+  }
+
   button {
     border: none;
     border-radius: 50px;
@@ -98,5 +115,16 @@ li {
       outline: none;
     }
   }
+
+}
+
+span {
+  word-break: break-word;
+}
+
+.trash {
+  background: #FF3366;
+  opacity: 0;
+  transition: opacity .1s ease-in;
 }
 </style>

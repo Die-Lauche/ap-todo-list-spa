@@ -10,7 +10,12 @@ const getters = {
   currentList: state => state.currentList,
   todosCompleted: state => state.todos.filter(item => item.isCompleted === true),
   todosProgressing: state => state.todos.filter(item => item.isInProgress === true),
-  todosTodo: state => state.todos.filter(item => item.isInTodo === true)
+  todosTodo: state => state.todos.filter(item => item.isInTodo === true),
+  getNewTodo: (state) => (todo) => {
+    const newTodo = state.todos.find(item => item.id === todo.id)
+    delete newTodo.todoList
+    return newTodo
+  }
 }
 
 const mutations = {
@@ -47,6 +52,12 @@ const mutations = {
   },
   setCurrentList (state, listId) {
     state.currentList = state.lists.find(item => item.id === listId) || {}
+  },
+  removeTodo (state, todo) {
+    state.todos = state.todos.filter(item => item.id !== todo.id)
+  },
+  removeList (state, list) {
+    state.lists = state.lists.filter(item => item.id !== list.id)
   }
 }
 
@@ -54,8 +65,7 @@ const actions = {
   // Add a new todo
   async addTodo (context, todo) {
     // Prepare the todo object
-    const currentList = state.currentList.listId
-    console.log(currentList, state.currentList)
+    const currentList = state.currentList.id
     const todoData = { content: todo, isCompleted: false, isInProgress: false, isInTodo: true, todoList: { id: currentList } }
     // Send an api call to add the todo
     try {
@@ -81,17 +91,51 @@ const actions = {
         // If the todo is completed and the pressed button is left it can only get set to in progress
         if (todo.isCompleted) {
           context.commit('setTodoInProgress', todo)
+          context.dispatch('sendUpdateTodo', context.getters.getNewTodo(todo))
         } else if (todo.isInProgress) {
           context.commit('setTodoTodo', todo)
+          context.dispatch('sendUpdateTodo', context.getters.getNewTodo(todo))
         }
         break
       case 'right':
         if (todo.isInTodo) {
           context.commit('setTodoInProgress', todo)
+          context.dispatch('sendUpdateTodo', context.getters.getNewTodo(todo))
         } else if (todo.isInProgress) {
           context.commit('setTodoCompleted', todo)
+          context.dispatch('sendUpdateTodo', context.getters.getNewTodo(todo))
         }
         break
+    }
+  },
+  // Send an api call to update the todo
+  async sendUpdateTodo (context, todo) {
+    console.log(todo)
+    try {
+      const response = await fetch('https://ap-todo-list.herokuapp.com/updateTodo', {
+        method: 'PATCH',
+        body: JSON.stringify(todo),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      await response
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async deleteTodo (context, todo) {
+    try {
+      const response = await fetch(`https://ap-todo-list.herokuapp.com/deleteTodo?tid=${todo.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      await response
+      context.commit('removeTodo', todo)
+    } catch (error) {
+      console.error(error)
     }
   },
   async createNewList (context, listName, userId) {
@@ -108,6 +152,20 @@ const actions = {
       // const response = await fetch('http://localhost:5000/request/todoList.json')
       const data = await response.json()
       context.commit('addNewList', data)
+    } catch (error) {
+      console.error(error)
+    }
+  },
+  async deleteList (context, list) {
+    try {
+      const response = await fetch(`https://ap-todo-list.herokuapp.com/deleteTodoList?listid=${list.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      await response
+      context.commit('removeList', list)
     } catch (error) {
       console.error(error)
     }

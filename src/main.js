@@ -5,16 +5,14 @@ import router from './router'
 import store from './store'
 import VModal from 'vue-js-modal'
 import Unicon from 'vue-unicons'
-import { uniUserCircle, uniArrowLeft, uniArrowRight, uniPlus } from 'vue-unicons/src/icons'
-import Popover from 'vue-js-popover'
+import { uniUserCircle, uniArrowLeft, uniArrowRight, uniPlus, uniTrashAlt } from 'vue-unicons/src/icons'
 
 import './server'
 
-Unicon.add([uniUserCircle, uniArrowLeft, uniArrowRight, uniPlus])
+Unicon.add([uniUserCircle, uniArrowLeft, uniArrowRight, uniPlus, uniTrashAlt])
 Vue.use(Unicon)
 
 Vue.use(VModal, { dynamic: true })
-Vue.use(Popover)
 
 Vue.config.productionTip = false
 
