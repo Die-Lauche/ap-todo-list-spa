@@ -23,7 +23,6 @@ new Vue({
   store,
   created () {
     if (sessionStorage.getItem('user')) {
-      console.log('Restoring user from session')
       const user = JSON.parse(sessionStorage.getItem('user'))
       this.$store.dispatch('Users/setUser', user)
     }

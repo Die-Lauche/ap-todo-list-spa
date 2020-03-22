@@ -72,7 +72,6 @@ export default {
     ])
   },
   created () {
-    console.log(this.$route.params.listId)
     this.$store.dispatch('ToDos/setCurrentList', this.$route.params.listId)
     this.$store.dispatch('ToDos/getListTodos', this.$route.params.listId)
   },

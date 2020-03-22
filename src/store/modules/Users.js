@@ -9,7 +9,7 @@ const getters = {
 }
 
 const mutations = {
-  setUser (state, user) { state.user = user; console.log('setUser', user) },
+  setUser (state, user) { state.user = user },
   setError (state, error) { state.error = error }
 }
 
@@ -31,7 +31,6 @@ const actions = {
       }
     } catch (error) {
       context.commit('setError', error)
-      console.log('Hier', error)
       return false
     }
   },

@@ -51,7 +51,9 @@ const mutations = {
     state.todos = todos.slice()
   },
   setCurrentList (state, listId) {
+    console.log(state.lists)
     state.currentList = state.lists.find(item => item.id === listId) || {}
+    console.log(state.currentList)
   },
   removeTodo (state, todo) {
     state.todos = state.todos.filter(item => item.id !== todo.id)
@@ -173,7 +175,6 @@ const actions = {
   async loadForUser (context, userId) {
     try {
       const response = await fetch(`https://ap-todo-list.herokuapp.com/getTodoList?uid=${userId}`)
-      // const response = await fetch('http://localhost:5000/request/todoList.json')
       const data = await response.json()
       context.commit('setLists', data)
     } catch (error) {
@@ -186,7 +187,6 @@ const actions = {
   async getListTodos (context, listId) {
     try {
       const response = await fetch(`https://ap-todo-list.herokuapp.com/todosForList?listId=${listId}`)
-      // const response = await fetch('http://localhost:5000/request/todos.json')
       const data = await response.json()
       context.commit('setTodos', data)
     } catch (error) {
