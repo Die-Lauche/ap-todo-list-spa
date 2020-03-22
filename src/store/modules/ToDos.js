@@ -138,9 +138,8 @@ const actions = {
       console.error(error)
     }
   },
-  async createNewList (context, listName, userId) {
-    // TODO add new list to the user
-    const listData = { id: userId, title: listName }
+  async createNewList (context, [listName, user]) {
+    const listData = { title: listName, user: { id: user.id } }
     try {
       const response = await fetch('https://ap-todo-list.herokuapp.com/addNewList', {
         method: 'POST',
@@ -149,7 +148,6 @@ const actions = {
           'Content-Type': 'application/json'
         }
       })
-      // const response = await fetch('http://localhost:5000/request/todoList.json')
       const data = await response.json()
       context.commit('addNewList', data)
     } catch (error) {
@@ -157,6 +155,7 @@ const actions = {
     }
   },
   async deleteList (context, list) {
+    console.log(list)
     try {
       const response = await fetch(`https://ap-todo-list.herokuapp.com/deleteTodoList?listid=${list.id}`, {
         method: 'DELETE',

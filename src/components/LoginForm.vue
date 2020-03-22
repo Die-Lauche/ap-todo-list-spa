@@ -73,7 +73,7 @@ export default {
         password: this.password
       })
       if (!result) {
-        alert('Something went wrong')
+        alert('Wrong username or password!')
       }
     },
     async doRegistration () {
@@ -83,7 +83,7 @@ export default {
         email: this.email
       })
       if (!result) {
-        alert('Something went wrong')
+        alert('Username is already in use!')
       }
     },
     show (modalName) {

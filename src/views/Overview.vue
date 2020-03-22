@@ -25,7 +25,7 @@
         <div class="h1">
           Neues Projekt anlegen
         </div>
-        <form @submit.prevent="addNewProject">
+        <form @submit.prevent="addNewProject()">
           <input v-model="projectName" type="text" name="projectName" placeholder="Projekt Name eingeben...">
           <button type="submit" class="btn">
             <span>Erstellen</span>
@@ -53,7 +53,9 @@ export default {
   methods: {
     // Add a new list to the user
     addNewProject () {
-      this.$store.dispatch('ToDos/createNewList', [this.projectName, this.userId])
+      // Retrieve user from session storage
+      const userFromSession = JSON.parse(sessionStorage.getItem('user'))
+      this.$store.dispatch('ToDos/createNewList', [this.projectName, userFromSession])
     },
     // Show the modal when clicked
     show (modalName) {

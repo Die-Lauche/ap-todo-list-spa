@@ -1,27 +1,29 @@
 <template>
   <div class="col-lg-4">
-    <router-link :to="{ name: 'details', params: { listId: list.id }}" class="project-link middle-xs">
-      <div class="todo-list">
-        <div class="row">
-          <div class="col-xs-10">
-            <div class="h1 list-title">
-              {{ list.title }}
+    <div class="list-wrapper">
+      <router-link :to="{ name: 'details', params: { listId: list.id }}"
+                   class="project-link middle-xs" @click.stop
+      >
+        <div class="todo-list">
+          <div class="row">
+            <div class="col-xs-10">
+              <div class="h1 list-title">
+                {{ list.title }}
+              </div>
             </div>
           </div>
-          <div class="col-xs-2 end-xs">
-            <button class="trash" @click="deleteList(list)">
-              <unicon
-                class="trash-alt"
-                name="trash-alt"
-                fill="#fff"
-                width="20"
-                height="20"
-              />
-            </button>
-          </div>
         </div>
-      </div>
-    </router-link>
+      </router-link>
+      <button class="trash" @click="deleteList(list)">
+        <unicon
+          class="trash-alt"
+          name="trash-alt"
+          fill="#fff"
+          width="20"
+          height="20"
+        />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -43,13 +45,23 @@ export default {
   },
   methods: {
     deleteList (event, list) {
-      this.$store.dispatch('ToDos/deleteList', list)
+      this.$store.dispatch('ToDos/deleteList', this.list)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+.list-wrapper {
+  position: relative;
+
+  &:hover {
+    .trash{
+      opacity: 1;
+    }
+  }
+}
 
 .project-link {
   display: block;
@@ -59,19 +71,13 @@ export default {
 
 .todo-list {
   display: flex;
-  padding: 16px;
+  padding: 16px 65px 16px 16px;
 
   .list-title {
     color: #1E1E1E;
     font-size: 16px;
     margin-bottom: 0;
     text-decoration: none;
-  }
-
-   &:hover {
-    .trash{
-      opacity: 1;
-    }
   }
 }
 
@@ -94,6 +100,10 @@ button {
 }
 
 .trash {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
   background: #FF3366;
   opacity: 0;
   transition: opacity .1s ease-in;
