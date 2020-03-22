@@ -67,7 +67,7 @@ const actions = {
     context.commit('setUser', null)
     context.commit('setError', null)
     sessionStorage.removeItem('user')
-    context.dispatch('ToDos/clear', null, { root: true })
+    // context.dispatch('ToDos/clear', null, { root: true })
   }
 }
 

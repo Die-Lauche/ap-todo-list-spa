@@ -55,6 +55,7 @@ export default {
 
 .list-wrapper {
   position: relative;
+  margin-bottom: 16px;
 
   &:hover {
     .trash{

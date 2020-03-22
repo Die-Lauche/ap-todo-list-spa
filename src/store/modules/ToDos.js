@@ -141,7 +141,7 @@ const actions = {
   async createNewList (context, [listName, user]) {
     const listData = { title: listName, user: { id: user.id } }
     try {
-      const response = await fetch('https://ap-todo-list.herokuapp.com/addNewList', {
+      const response = await fetch('https://ap-todo-list.herokuapp.com/addTodoList', {
         method: 'POST',
         body: JSON.stringify(listData),
         headers: {

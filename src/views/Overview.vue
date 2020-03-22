@@ -56,6 +56,8 @@ export default {
       // Retrieve user from session storage
       const userFromSession = JSON.parse(sessionStorage.getItem('user'))
       this.$store.dispatch('ToDos/createNewList', [this.projectName, userFromSession])
+      // Clear the input field
+      this.projectName = ''
     },
     // Show the modal when clicked
     show (modalName) {
